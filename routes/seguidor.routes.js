@@ -6,6 +6,10 @@ const { requireAuth, requireRole } = require('../middlewares/auth.middleware');
 // Todas estas rutas requieren estar autenticado y tener rol 'follower'
 router.use(requireAuth, requireRole('follower'));
 
+
+// GET /api/seguidor/creadores  → todos en orden alfabético
+router.get('/creadores', seguidorController.buscarCreadores);
+
 // ── Búsqueda ─────────────────────────────────────────────────────────────
 // GET /api/seguidor/buscar?q=nombre
 router.get('/buscar', seguidorController.buscarCreadores);

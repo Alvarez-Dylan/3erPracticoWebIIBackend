@@ -4,14 +4,16 @@ const { Op } = require('sequelize');
 // ── Búsqueda de Creadores ────────────────────────────────────────────────
 
 const buscarCreadores = async (query) => {
+    const where = { role: 'creator' };
+
+    if (query && query.trim() !== '') {
+        where.nombre = { [Op.like]: `%${query}%` };
+    }
+
     const creadores = await Usuario.findAll({
-        where: {
-            role: 'creator',
-            nombre: {
-                [Op.iLike]: `%${query}%`
-            }
-        },
+        where,
         attributes: ['id', 'nombre', 'email'],
+        order: [['nombre', 'ASC']],
         include: [
             {
                 association: 'perfil',

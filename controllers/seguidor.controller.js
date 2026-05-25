@@ -5,11 +5,6 @@ const seguidorService = require('../services/seguidor.service');
 const buscarCreadores = async (req, res) => {
     try {
         const { q } = req.query;
-
-        if (!q || q.trim() === '') {
-            return res.status(400).json({ message: 'Parámetro "q" (búsqueda) es requerido' });
-        }
-
         const creadores = await seguidorService.buscarCreadores(q);
         return res.json(creadores);
     } catch (err) {
